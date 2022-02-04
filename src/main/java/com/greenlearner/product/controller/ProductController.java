@@ -3,8 +3,6 @@ package com.greenlearner.product.controller;
 import com.greenlearner.product.dto.Product;
 import com.greenlearner.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
