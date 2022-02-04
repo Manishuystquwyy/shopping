@@ -1,6 +1,8 @@
-package com.greenlearner.product.exception;
+package com.greenlearner.product.exception.handler;
 
 import com.greenlearner.product.dto.APIError;
+import com.greenlearner.product.exception.CurrencyNotValidException;
+import com.greenlearner.product.exception.OfferNotValidException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({OfferNotValidException.class})
+    @ExceptionHandler({OfferNotValidException.class, CurrencyNotValidException.class})
     ResponseEntity<?> offerNotValidHandler(Exception exc, ServletWebRequest request){
         APIError apiError = new APIError();
         apiError.setTimeStamp(LocalDateTime.now());
@@ -46,6 +48,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setPathUri(request.getDescription(false));
         apiError.setErrors(errors);
 
-        return new ResponseEntity(apiError, headers, apiError.getStatus());
+        return new ResponseEntity<>(apiError, headers, apiError.getStatus());
     }
 }
