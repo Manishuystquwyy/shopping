@@ -4,6 +4,8 @@ import com.greenlearner.product.dto.Product;
 import com.greenlearner.product.exception.CurrencyNotValidException;
 import com.greenlearner.product.exception.OfferNotValidException;
 import com.greenlearner.product.repository.ProductRepository;
+import com.greenlearner.product.service.config.ProductConfiguration;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +14,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Slf4j
 @Service
 public class ProductService {
 
     private ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private ProductConfiguration productConfiguration;
 
     public String addProduct(Product product) {
         log.info("adding product");
@@ -28,12 +29,9 @@ public class ProductService {
             throw new OfferNotValidException("No Discount is allowed at 0 product price");
         }
 
-        List<String> validCurrencies = new ArrayList<>();
-        validCurrencies.add("INR");
-        validCurrencies.add("USD");
-        validCurrencies.add("EUR");
-        if(!validCurrencies.contains(product.getCurrency().toUpperCase())){
-            throw new CurrencyNotValidException("Invalid Currency. Valid currencies- "+ validCurrencies);
+        if(!productConfiguration.getCurrencies().contains(product.getCurrency().toUpperCase())){
+            throw new CurrencyNotValidException("Invalid Currency. Valid currencies- "+
+                    productConfiguration.getCurrencies());
         }
         productRepository.save(product);
         return "success";
