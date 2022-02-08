@@ -12,6 +12,16 @@ spring:
   profiles:
     active: dev1
 
+logging:
+  file:
+    name: c:\logs\product.log
+    #path: c:\logs  #spring.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50KB
+  level:
+    root: DEBUG
+
 product:
   currencies:
     - INR
