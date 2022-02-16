@@ -19,8 +19,19 @@ logging:
   logback:
     rollingpolicy:
       max-file-size: 50KB
-  level:
-    root: DEBUG
+ # level:
+   # root: INFO
+
+# actuator specific
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
 
 product:
   currencies:
