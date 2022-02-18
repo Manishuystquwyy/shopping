@@ -11,6 +11,11 @@ spring:
       database: shopping
   profiles:
     active: dev1
+  boot:
+    admin:
+      client:
+        url:
+          - http://localhost:8081
 
 logging:
   file:
